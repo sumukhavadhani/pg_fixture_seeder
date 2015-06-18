@@ -14,3 +14,20 @@
       -x, --pass        Password for database.                            [required]
       -r, --regenerate  Regenerate model files.
       -m, --models      Absolute Path to Models folder.
+
+##Fixture file structure
+
+    module.exports = {
+      "model": "my model name",
+      "database": "my database name",
+      "fixtures": [
+        {
+          "a" : 1,
+          "b" : 2,
+          ...
+        },
+        {
+          ...
+        }
+      ]
+    };
