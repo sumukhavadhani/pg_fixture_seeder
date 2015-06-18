@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+var seeder = require('../index').seed;
+
+var argv = require('yargs')
+  .usage('Usage: seeder -f </absolute/path/to/fixtures> -h <host> -p <port> -d <databases> -u <user> -x <password> -r [regenerate model files] -m [/absolute/path/to/models]')
+  .demand(['h', 'd', 'u', 'x', 'p'])
+  .alias('f', 'fixture')
+  .alias('h', 'host')
+  .alias('p', 'port')
+  .alias('d', 'database')
+  .alias('u', 'user')
+  .alias('x', 'pass')
+  .alias('r', 'regenerate')
+  .alias('m', 'models')
+  .describe('f', 'Absolute Path to fixtures folder.')  
+  .describe('h', 'IP/Hostname for the database.')
+  .describe('p', 'Port number for database.')
+  .describe('d', 'Comma separated database names (without white spaces).')
+  .describe('u', 'Username for database.')
+  .describe('x', 'Password for database.')
+  .describe('r', 'Regenerate model files.')
+  .describe('m', 'Absolute Path to Models folder.')
+  .argv;
+
+if(typeof(argv.r) === 'undefined') {
+  regenerate = false;
+} else {
+  regenerate = true;
+}
+
+seeder(argv.f, argv.d, argv.h, argv.p, argv.u, argv.x, regenerate, argv.m, function(err) {
+  console.log('Seeding DONE!, err:', err);
+})
